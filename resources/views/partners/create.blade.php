@@ -7,6 +7,11 @@
 
     <form action="{{ route('partners.store') }}" method="POST" enctype="application/x-www-form-urlencoded">
         @csrf
+        @if($errors->any())
+            <script>
+                alert("Ошибка валидации данных. Изучите ошибки валидации и исправьте данные.")
+            </script>
+        @endif
         <div>
             @error('partner_type_id')
                 <p class="warning">{{ $message }}</p>
