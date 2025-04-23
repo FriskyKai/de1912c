@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PartnerRequest;
+use App\Models\MaterialType;
 use App\Models\Partner;
 use App\Models\PartnerProduct;
 use App\Models\PartnerType;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,5 +63,22 @@ class PartnerController extends Controller
         $partner->update($request->validated());
 
         return redirect()->route('partners.index');
+    }
+
+    public function history(Partner $partner) {
+        $partner_products = PartnerProduct::where('partner_id', $partner->id)->get();
+
+        return view('partners.history', compact('partner', 'partner_products'));
+    }
+
+    public function method_4m(ProductType $productType, MaterialType $materialType, int $quantity, float $p1, float $p2) {
+        try {
+            $need_quantity = round($p1 * $p2 * $productType->coefficient * (1 + $materialType->deffective));
+
+            return $need_quantity;
+        }
+        catch (\Exception $e) {
+            return -1;
+        }
     }
 }

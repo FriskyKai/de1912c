@@ -16,6 +16,7 @@
                 <div class="div15 bigFontSize">{{ $partnerDiscount[$partner->id] }}%</div>
             </div>
         </a>
+        <a style="padding-left: 20px" href="/partners/history/{{$partner->id}}">История реализации товаров {{ $partner->partnerType->name }} | "{{ $partner->name }}"</a>
     @endforeach
 @endsection
 
